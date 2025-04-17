@@ -1,18 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Deadlock Detection Tool</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- Load Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Load vis.js from CDN -->
     <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <link href="https://unpkg.com/vis-network/styles/vis-network.css" rel="stylesheet" type="text/css" />
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Theme toggle -->
+    <script>
+        // Check for saved theme preference, otherwise use dark theme
+        if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
 </head>
-
 <body>
     <div class="container">
         <header>
@@ -24,6 +35,7 @@
                 </button>
             </div>
         </header>
+        
         <main>
             <section class="input-section">
                 <div class="basic-inputs">
@@ -39,6 +51,7 @@
                         <i class="fas fa-table"></i> Generate Matrices
                     </button>
                 </div>
+
                 <div class="action-buttons">
                     <button id="addProcess" class="btn btn-success">
                         <i class="fas fa-plus"></i> Add Process
@@ -65,19 +78,65 @@
                         <h3><i class="fas fa-list-ol"></i> Total Resource Instances</h3>
                         <div id="totalInstances" class="matrix"></div>
                     </div>
-
+                    
                     <div class="matrix-section">
                         <h3><i class="fas fa-table"></i> Allocation Matrix</h3>
                         <div id="allocationMatrix" class="matrix"></div>
                     </div>
-
+                    
                     <div class="matrix-section">
                         <h3><i class="fas fa-table"></i> Maximum Matrix</h3>
                         <div id="maximumMatrix" class="matrix"></div>
                     </div>
                 </div>
             </section>
+
+            <section class="visualization-section">
+                <h3><i class="fas fa-project-diagram"></i> Resource Allocation Graph</h3>
+                <div id="graphContainer"></div>
+                <div id="loadingIndicator" class="loading-indicator">
+                    <i class="fas fa-spinner fa-spin"></i> Generating graph...
+                </div>
+            </section>
+
+            <section class="results-section">
+                <div id="deadlockStatus" class="result-box">
+                    <h3><i class="fas fa-info-circle"></i> Deadlock Status</h3>
+                    <p>Generate matrices and detect deadlocks to see results.</p>
+                </div>
+                <div id="suggestions" class="result-box">
+                    <h3><i class="fas fa-lightbulb"></i> Suggestions</h3>
+                    <p>Generate matrices and detect deadlocks to see suggestions.</p>
+                </div>
+                <div id="minResources" class="result-box">
+                    <h3><i class="fas fa-calculator"></i> Minimum Resources</h3>
+                    <p>Generate matrices and calculate minimum resources to see results.</p>
+                </div>
+            </section>
         </main>
+        
+        <footer>
+            <p>Deadlock Detection Tool &copy; 2023 | <a href="#">Learn More</a></p>
+        </footer>
     </div>
+    <script src="script.js"></script>
+    <script>
+        // Theme toggle functionality
+        document.getElementById('themeToggle').addEventListener('click', function() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            // Update icon
+            const icon = this.querySelector('i');
+            if (newTheme === 'dark') {
+                icon.className = 'fas fa-moon';
+            } else {
+                icon.className = 'fas fa-sun';
+            }
+        });
+    </script>
 </body>
-</html>
+</html> 
