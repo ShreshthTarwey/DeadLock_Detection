@@ -432,14 +432,6 @@ class DeadlockDetector {
                 <div class="legend-color request"></div>
                 <span>Request</span>
             </div>
-            <div class="legend-item">
-                <div class="legend-color process-type"></div>
-                <span>Process Types</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-color resource-type"></div>
-                <span>Resource Types</span>
-            </div>
         `;
         
         const container = document.getElementById('graphContainer');
@@ -526,7 +518,7 @@ class DeadlockDetector {
 
         return cycles;
     }
-
+    //This function builds the graph for the deadlock detection
     buildGraph() {
         const graph = {};
 
@@ -644,7 +636,7 @@ class DeadlockDetector {
         
         animateCycle();
     }
-
+ //This function suggests solutions for the deadlock
     suggestSolution() {
         if (!this.allocationMatrix || !this.maximumMatrix) {
             this.showNotification('Please generate and fill in the matrices first', 'error');
@@ -701,7 +693,7 @@ class DeadlockDetector {
         
         this.showNotification('Solution suggestions generated', 'success');
     }
-
+    //This function finds the minimum resources needed to avoid deadlock
     findMinResources() {
         if (!this.allocationMatrix || !this.maximumMatrix || !this.totalInstances) {
             this.showNotification('Please generate and fill in the matrices first', 'error');
@@ -741,7 +733,7 @@ class DeadlockDetector {
             this.showNotification('Minimum resources calculated successfully', 'success');
         }, 100);
     }
-
+    //This function checks if the current state is safe
     isSafeState(available) {
         const work = [...available];
         const finish = new Array(this.processes).fill(false);
@@ -765,7 +757,7 @@ class DeadlockDetector {
         
         return finish.every(f => f);
     }
-
+    //This function calculates the need matrix
     calculateNeedMatrix() {
         const need = [];
         for (let i = 0; i < this.processes; i++) {
@@ -777,18 +769,18 @@ class DeadlockDetector {
         }
         return need;
     }
-
+    //This function checks if the process can allocate the resources
     canAllocate(need, available) {
         return need.every((n, i) => n <= available[i]);
     }
-    
+    //This function adds a process
     addProcess() {
         this.processes++;
         document.getElementById('processCount').value = this.processes;
         this.generateMatrices();
         this.showNotification(`Added process P${this.processes-1}`, 'success');
     }
-    
+    //This function adds a resource
     addResource() {
         this.resources++;
         document.getElementById('resourceCount').value = this.resources;
