@@ -75,4 +75,4 @@ Visualizes the Resource Allocation Graph (RAG) using the `vis.js` library. The g
 The graph is animated, and edges are drawn sequentially to represent allocations and requests.
 
 ## Conclusion
-This application is designed to help users visualize resource allocation and detect deadlocks in a system. It uses matrices for resource allocation and the Banker's Algorithm to determine the safety of resource allocation. The graphical representation helps in understanding the relationships between processes and resources.
+This application is designed to help users visualize resource allocation and detect deadlocks in a system. It uses matrices for resource allocation and the Banker's Algorithm to determine the safety of resource allocation. The graphical representation helps in understanding the relationships between processes and resources..
